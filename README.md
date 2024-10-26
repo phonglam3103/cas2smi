@@ -14,6 +14,7 @@ Clone the current repository:
     git clone https://github.com/phonglam3103/cas2smi.git
 
 I will assume that you are familiar with virtual environment concept, for example [Anaconda](https://docs.anaconda.com/anaconda/install/index.html).As the script is fairly small, I would not expect any conflicts with other programs. An example of setting up the environment:
+
     conda env create -f cas2smi/environment.yml
     conda activate cas2smi
     pip install -e cas2smi
