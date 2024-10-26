@@ -1,15 +1,46 @@
-# python template
+# CAS2SMI
 
-A pure-python project template
+Cas2Smi is a small script to convert CAS number to the isomeric SMILES format using PubChem.
 
-[![Build Status](https://github.com/python-project-templates/python-template/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/python-template/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/python-project-templates/python-template/branch/main/graph/badge.svg)](https://codecov.io/gh/python-project-templates/python-template)
-[![License](https://img.shields.io/github/license/python-project-templates/python-template)](https://github.com/python-project-templates/python-template)
-[![PyPI](https://img.shields.io/pypi/v/python-template.svg)](https://pypi.python.org/pypi/python-template)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/python-project-templates/python-template/main?urlpath=lab)
+**Author:** &nbsp;&nbsp;Phong Lam<br />
+**Email:**  &nbsp;&nbsp;&nbsp;phong.lam@icm.uu.se <br />
+**Place:** &nbsp;&nbsp;&nbsp;Jens Carlsson Lab. Uppsala University <br />
+**Date:** &nbsp;&nbsp;  2024 </br >
 
-## Overview
+# Installation 
 
+Clone the current repository:
 
-> \[!NOTE\]
-> This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).
+    git clone https://github.com/phonglam3103/cas2smi.git
+
+I will assume that you are familiar with virtual environment concept, for example [Anaconda](https://docs.anaconda.com/anaconda/install/index.html).As the script is fairly small, I would not expect any conflicts with other programs. An example of setting up the environment:
+    conda env create -f cas2smi/environment.yml
+    conda activate cas2smi
+    pip install -e cas2smi
+
+# Usage
+
+## Input
+
+The program requires a comma-separated or tab-separated file containing two columns (Name, CAS) without headers.
+
+```
+    o-Tolylboronic acid, 16419-60-6
+    3-Hydroxyphenylboronic acid, 87199-18-6
+```
+
+OR for excel file:
+
+```
+    o-Tolylboronic acid          |   16419-60-6
+    3-Hydroxyphenylboronic acid  |   87199-18-6
+```
+
+## Usage
+
+The script only takes in the text file or excel file (with the `-xls` flag). Then, for each of the entry, a request will be sent to PubChem to retrieve the isomeric SMILES. The output will be the name of the input with the "_SMILES" subfix.
+
+```bash
+cas2smi example.smi
+cas2smi boronic_acid.xlsx -xls
+```
