@@ -13,7 +13,7 @@ Clone the current repository:
 
     git clone https://github.com/phonglam3103/cas2smi.git
 
-I will assume that you are familiar with virtual environment concept, for example [Anaconda](https://docs.anaconda.com/anaconda/install/index.html).As the script is fairly small, I would not expect any conflicts with other programs. An example of setting up the environment:
+I will assume that you are familiar with virtual environment concept, for example [Anaconda](https://docs.anaconda.com/anaconda/install/index.html). As the script is fairly small, I would not expect any conflicts with other programs. An example of setting up the environment:
 
     conda env create -f cas2smi/environment.yml
     conda activate cas2smi
@@ -39,10 +39,13 @@ OR for excel file:
 
 ## Usage
 
-The script only takes in the text file or excel file (with the `-xls` flag). Then, for each of the entry, a request will be sent to PubChem to retrieve the isomeric SMILES. The output will be the name of the input with the "_SMILES" subfix. It is possible to speedup the process using the `-j` or `--num_processes` flags. By default, only 1 core is used
+The script only takes in the text file or excel file (with the `-xls` flag). Then, for each of the entry, a request will be sent to PubChem to retrieve the isomeric SMILES. The output will be the name of the input with the "_SMILES" subfix. It is possible to speedup the process using the `-j` or `--num_processes` flags. By default, only 1 core is used.
+
 
 ```bash
 cas2smi example.smi
 cas2smi boronic_acid.xlsx -xls
 cas2smi test.csv -j 8
 ```
+
+**Use the `--help (-h)` flag for more information.**
