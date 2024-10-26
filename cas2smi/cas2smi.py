@@ -5,6 +5,7 @@ except ImportError:
     raise ImportError("The requests module is required. Run 'pip install requests' and try again.")
 import pandas as pd
 import os
+from multiprocessing import Pool
 
 def cas_to_smiles_pubchem(cas):
     """
@@ -55,8 +56,15 @@ def load_data(input_file, is_excel):
     df['CAS'] = df['CAS'].str.strip()
     return df.reset_index(drop=True)
 
+def parallel_apply(df, func, num_processes):
+    with Pool(num_processes) as pool:
+        results = pool.map(func, df['CAS'])
+    df['SMILES'] = results
+    return df
+
 def main():
-    help_text = """Convert CAS numbers in a file to SMILES strings using PubChem.
+    help_text = """CAS2SMI 
+    Convert CAS numbers in a file to SMILES strings using PubChem.
     The input file should be an Excel or CSV file without header. 
     To avoid ambiguity, only comma-separated or tab-separated files are supported.
 
@@ -75,19 +83,23 @@ def main():
     parser = argparse.ArgumentParser(description=help_text, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("input_file", type=str, help="Path to the input file (Excel or CSV)")
     parser.add_argument("-xls", action="store_true", help="Flag indicating the input file is an Excel file (.xls or .xlsx)")
-
+    parser.add_argument("-j", "--num_processes", type=int, default = 1, help="Number of processes to use for parallel processing (default: 1)")
     args = parser.parse_args()
     if os.path.exists(args.input_file) == False:
         print(f"File {args.input_file} not found.")
         return
     input_file = args.input_file
     is_excel = args.xls
-
+    num_processes = args.num_processes
+    
     # Load the data
     df = load_data(input_file, is_excel)
 
     # Apply the SMILES conversion function
-    df['SMILES'] = df['CAS'].apply(cas_to_smiles_pubchem)
+
+
+    
+    df = parallel_apply(df, cas_to_smiles_pubchem, num_processes)
 
     # Save the resulting DataFrame to a CSV file
     output_file = f"{input_file.split('.')[0]}_SMILES.csv"
