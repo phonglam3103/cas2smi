@@ -39,7 +39,7 @@ OR for excel file:
 
 ## Usage
 
-The script only takes in the text file or excel file (with the `-xls` flag). Then, for each of the entry, a request will be sent to PubChem to retrieve the isomeric SMILES. The output will be the name of the input with the "_SMILES" subfix. It is possible to speedup the process using the `-j` or ``--num_processes` flags. By default, only 1 core is used
+The script only takes in the text file or excel file (with the `-xls` flag). Then, for each of the entry, a request will be sent to PubChem to retrieve the isomeric SMILES. The output will be the name of the input with the "_SMILES" subfix. It is possible to speedup the process using the `-j` or `--num_processes` flags. By default, only 1 core is used
 
 ```bash
 cas2smi example.smi
